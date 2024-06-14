@@ -1,0 +1,103 @@
+<div class="container-fluid">
+    <app-page-title title="Quản lý nhà cung cấp" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <form [formGroup]="searchForm" (submit)="search()">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="mb-4">
+                  <label for="nameId">Mã nhà cung cấp</label>
+                  <input id="nameId" name="name" type="text" class="form-control" formControlName="providerCode" maxlength="500">
+                </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="mb-4">
+                  <label>Tên nhà cung cấp</label>
+                  <input id="nameId" name="pname" type="text" class="form-control" formControlName="provicderName" maxlength="500">
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-wrap gap-2 mt-2 justify-content-center">
+              <button type="submit" class="btn btn-primary"><i
+                class="fas fa-search"></i>{{'common.button.search'|translate}}</button>
+              <button type="button" (click)="create()" class="ml-2 btn btn-success"><i class="bx bx-plus-medical"></i>{{'common.button.insert'|translate}}</button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+
+          <!-- Table -->
+          <div class="table-responsive">
+            <table id="basic-datatable"
+                   class="table table-bordered dt-responsive nowrap no-footer dtr-inline">
+              <thead>
+              <tr>
+                <th>STT</th>
+                <th>Thao tác</th>
+                <th>Mã nhà cung cấp</th>
+                <th>Tên nhà cung cấp</th>
+                <th>Số điện thoại</th>
+                <th>Email</th>
+                <th>Địa chỉ</th>
+                <th>Trạng thái</th>
+              </tr>
+              </thead>
+              <tbody *ngFor="let table of tables;let i=index">
+              <tr>
+                <!-- <td>
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" [(ngModel)]="table.selected">
+                  </div>
+                </td> -->
+                <td>
+                  <ngb-highlight [result]="i + 1 + ((page.pageNumber - 1) * page.size)"></ngb-highlight>
+                </td>
+                <td>
+                  <i class="fas fa-edit" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'common.button.edit'|translate" (click)="edit(table)"></i>
+                  <!--<i class="fas fa-trash" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'common.button.resetPassword'|translate" (click)="deleteProduct(table)"></i> |
+                  <i class="fas fa-upload" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'common.button.resetPassword'|translate" (click)="push(table)"></i>-->
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims" >{{table.providerNo}}</p>
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims" >{{table.providerName}}</p>
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims">{{table.phoneNumber}}</p>
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims">{{table.email}}</p>
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims">{{table.address}}</p>
+                </td>
+                <td style="max-width: 150px;">
+                  <p class="class_nowrap_lims">{{table.status===1?"Đang hoạt động":"Bị vô hiệu hóa"}}</p>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row justify-content-md-between align-items-md-center mt-2">
+            <div class="col-sm-12 col-md-5">
+            </div>
+            <!-- Pagination -->
+            <div class="col-sm-12 col-md-5">
+              <div class="text-md-right float-md-end pagination-rounded">
+                <ngb-pagination [collectionSize]="page.totalElements" [(page)]="page.pageNumber" [pageSize]="page.size"
+                                [maxSize]="5" (pageChange)="changePage($event)">
+                </ngb-pagination>
+              </div>
+            </div>
+            <!-- End Pagination -->
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>

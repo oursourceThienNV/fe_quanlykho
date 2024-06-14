@@ -1,0 +1,144 @@
+<div class="container-fluid">
+  <app-page-title title="{{'users.title' | translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="card">
+      <div class="card-body" *ngIf="role=='00'">
+        <form [formGroup]="searchForm" (submit)="search()">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="nameId">Tên đăng nhập</label>
+                <input id="username" name="name" type="text" class="form-control" formControlName="username" maxlength="500">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label>Họ và tên</label>
+                <input id="fullname" name="fullname" type="text" class="form-control" formControlName="fullname" maxlength="500">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label>SDT</label>
+                <input id="phone" name="phone" type="text" class="form-control" formControlName="phone" maxlength="500">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="statusId">Trạng thái</label>
+                <ng-select formControlName="status" formControl="form-control">
+                <ng-option value="">Tất cả</ng-option>
+                <ng-option value="00">Tạm dừng hoạt động</ng-option>
+                <ng-option value="01">Đang hoạt động</ng-option>
+<!--
+                <ng-option value="02">Vô hiệu hóa</ng-option>
+-->
+              </ng-select>
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="roleId">Vai trò</label>
+                <ng-select formControlName="role" formControl="form-control">
+                  <ng-option value="">Tất cả</ng-option>
+                <ng-option value="00">Admin</ng-option>
+                <ng-option value="01">Nhân viên</ng-option>
+              </ng-select>
+
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-2 justify-content-center">
+            <button type="submit" class="btn btn-primary"><i
+              class="fas fa-search"></i>{{'common.button.search'|translate}}</button>
+            <button type="button" (click)="create()" class="ml-2 btn btn-success"><i class="bx bx-plus-medical"></i>{{'common.button.insert'|translate}}</button>
+            <!-- <button type="button" (click)="delete()" class="ml-2 btn btn-danger" [disabled]="deleteCheck(tables)"><i class="fas fa-trash"></i>{{'common.button.delete'|translate}}</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table id="basic-datatable"
+                 class="table table-bordered dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+            <tr>
+              <th>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="selectedAll"
+                         (change)="selectAllChange()">
+                </div>
+              </th>
+              <th>STT</th>
+              <th>Thao tác</th>
+              <th>Tên đăng nhập</th>
+              <th>Tên đầy đủ</th>
+              <th>Email</th>
+              <th>SĐT</th>
+<!--
+              <th>Người đại diện</th>
+-->
+              <th>Vai trò</th>
+              <th>Trạng thái</th>
+            </tr>
+            </thead>
+           <tbody *ngFor="let table of tables;let i=index">
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="table.selected">
+                </div>
+              </td>
+              <td>
+                <ngb-highlight [result]="i + 1 + ((page.pageNumber - 1) * page.size)"></ngb-highlight>
+              </td>
+              <td>
+                <i class="fas fa-edit" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Cập nhật thông tin người dùng'" (click)="edit(table)"></i>
+                <i class="fas fa-key" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Thay đổi mật khẩu'|translate" (click)="resetPassword(table)"></i>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims" >{{table.identifier}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table.fullname}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims" >{{table.email}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims" >{{table.phone}}</p>
+              </td>
+              <td>
+                {{table?.role==="00"?"Admin":"Nhân viên"}}
+              </td>
+              <td>
+                {{table?.status==="01"?"Đang hoạt động":"Bị vô hiệu hóa"}}
+              </td>
+
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+          <div class="col-sm-12 col-md-5">
+          </div>
+          <!-- Pagination -->
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-right float-md-end pagination-rounded">
+              <ngb-pagination [collectionSize]="page.totalElements" [(page)]="page.pageNumber" [pageSize]="page.size"
+                              [maxSize]="5" (pageChange)="changePage($event)">
+              </ngb-pagination>
+            </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

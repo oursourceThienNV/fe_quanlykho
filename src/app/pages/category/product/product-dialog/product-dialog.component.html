@@ -1,0 +1,36 @@
+<form [formGroup]="dataForm" (ngSubmit)="save()">
+  <div class="modal-header">
+    <h3 class="modal-title mt-0"><b>{{title}}</b></h3>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="pno">Mã sản phẩm<span class="text-danger">*</span></label>
+          <input id="pno" [readOnly]="inputData" type="text" disabled class="form-control" formControlName="pno" maxlength="50" trim placeholder="Hệ thống tự tạo">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="pname">Tên sản phẩm<span class="text-danger">*</span></label>
+          <input id="pname" type="text" class="form-control" formControlName="pname" maxlength="40" trim="blur">
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="mb-2">
+          <label for="description">Mô tả sản phẩm<span class="text-danger">*</span></label>
+          <textarea class="form-control" formControlName="description" style="min-height:200px;"></textarea>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary" *ngIf="action==='create'||action==='edit'">Lưu</button>
+    <button type="button" class="btn btn-light"
+            (click)="modal.close('Close click')">Hủy</button>
+  </div>
+</form>
