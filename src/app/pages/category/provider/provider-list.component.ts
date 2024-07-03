@@ -54,8 +54,8 @@ export class ProviderListComponent implements OnInit {
     this.productService.search({
       pageNumber: '0',
       pageSize: 10,
-      pno:this.stringNullOrEmpty(this.searchForm.get("providerNo").value)? {contains:this.searchForm.get("providerNo").value}:null,
-      pname:this.stringNullOrEmpty(this.searchForm.get("providerName").value)? {contains:this.searchForm.get("providerName").value}:null,
+      providerNo:this.stringNullOrEmpty(this.searchForm.get("providerNo").value)? {contains:this.searchForm.get("providerNo").value}:null,
+      providerName:this.stringNullOrEmpty(this.searchForm.get("providerName").value)? {contains:this.searchForm.get("providerName").value}:null,
     }).subscribe(res => this.onSuccess(res.body));
   }
 

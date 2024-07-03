@@ -96,7 +96,10 @@ export class ExportDialogComponent implements OnInit, OnChanges {
         }
         this.exportService.getProviderByImportId(body).subscribe(res=>{
           this.products=res?.body?.body?.listProducts;
-          const formattedDate = this.datePipe.transform((res?.body?.body?.importWare?.importDate), 'mm/dd/yyyy');
+          const importDate = res?.body?.body?.exportWareDTO.importDate;
+          const formattedDate = this.datePipe.transform(importDate, 'yyyy-MM-dd');
+
+          // Setting the formatted date to the form control
           this.dataForm.get('importDate')?.setValue(formattedDate);
 
           if(res?.body?.body?.exportWareDTO.status==1){

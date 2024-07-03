@@ -87,7 +87,10 @@ export class WarehouseDialogComponent implements OnInit {
           this.dataForm.get('phoneNumber').setValue(res?.body?.body?.provider?.phoneNumber);
           this.dataForm.get('address').setValue(res?.body?.body?.provider?.address);
           this.products=res?.body?.body?.listProducts;
-          const formattedDate = this.datePipe.transform((res?.body?.body?.importWare?.importDate), 'mm/dd/yyyy');
+          const importDate = res?.body?.body?.importWare.importDate;
+          const formattedDate = this.datePipe.transform(importDate, 'yyyy-MM-dd');
+
+          // Setting the formatted date to the form control
           this.dataForm.get('importDate')?.setValue(formattedDate);
 
           if(res?.body?.body?.importWare.status==1){
