@@ -50,8 +50,8 @@ export class ExportListComponent implements OnInit {
     this.exportServices.search({
       pageNumber: '0',
       pageSize: 10,
-      pno:this.stringNullOrEmpty(this.searchForm.get("code").value)? {contains:this.searchForm.get("code").value}:null,
-      pname:this.stringNullOrEmpty(this.searchForm.get("title").value)? {contains:this.searchForm.get("title").value}:null,
+      code:this.stringNullOrEmpty(this.searchForm.get("code").value)? {contains:this.searchForm.get("code").value}:null,
+      title:this.stringNullOrEmpty(this.searchForm.get("title").value)? {contains:this.searchForm.get("title").value}:null,
     }).subscribe(res => this.onSuccess(res.body));
   }
 
