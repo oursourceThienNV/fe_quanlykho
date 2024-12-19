@@ -1,0 +1,125 @@
+<div class="container-fluid">
+  <app-page-title title="{{'users.title' | translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="card">
+      <div class="card-body" *ngIf="role=='00'">
+        <form [formGroup]="searchForm" (submit)="search()">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="nameId">Số điện thoại</label>
+                <input id="username" name="name" type="text" class="form-control" formControlName="Phone" maxlength="500">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label>Họ và tên</label>
+                <input id="fullname" name="fullname" type="text" class="form-control" formControlName="FullName" maxlength="500">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-2 justify-content-center">
+            <button type="submit" class="btn btn-primary"><i
+              class="fas fa-search" (click)="search()"></i>{{'common.button.search'|translate}}</button>
+            <!-- <button type="button" (click)="delete()" class="ml-2 btn btn-danger" [disabled]="deleteCheck(tables)"><i class="fas fa-trash"></i>{{'common.button.delete'|translate}}</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body">
+
+        <!-- Table -->
+        <div class="table-responsive">
+          <table id="basic-datatable"
+                 class="table table-bordered dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+            <tr>
+              <th>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="selectedAll"
+                         (change)="selectAllChange()">
+                </div>
+              </th>
+              <th>STT</th>
+              <th>Thao tác</th>
+              <th>Mã đơn</th>
+              <th>Số điện thoại</th>
+              <th>Họ và tên</th>
+              <th>Email</th>
+              <th>Nhân viên tiếp nhận tư vấn</th>
+              <th>Lãnh đạo phê duyệt</th>
+              <th>Hướng dẫn viên du lịch</th>
+              <th>Trạng thái</th>
+            </tr>
+            </thead>
+           <tbody *ngFor="let table of tables;let i=index">
+            <tr>
+              <td>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [(ngModel)]="table.selected">
+                </div>
+              </td>
+              <td>
+                <ngb-highlight [result]="i + 1 + ((page.pageNumber - 1) * page.size)"></ngb-highlight>
+              </td>
+              <td>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" *ngIf="table.status=='00'||table.status=='01'||table.status=='02'||table.status=='03'" [ngbTooltip]="'Nhập thông tin tư vấn'" (click)="edit(table)">Nhập</button>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" *ngIf="table.status=='01'"  [ngbTooltip]="'Tạo lịch trình'" (click)="addTrip(table)">Tạo lịch</button>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" *ngIf="table.status=='04'" [ngbTooltip]="'Cập nhật lịch trình'"  (click)="editTrip(table)">Cập nhật</button>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" *ngIf="table.status=='04'" [ngbTooltip]="'Trình duyệt'" (click)="requestTrip(table)">Trình duyệt</button>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" *ngIf="table.status=='05'" [ngbTooltip]="'Duyệt'" (click)="approveTrip(table)">Duyệt</button>
+                <button class="fas fa-edit" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Hủy bỏ'" *ngIf="table.status=='05'||table.status=='06'" (click)="rejectTrip(table)">Hủy</button>
+                <button class="fas fa-s" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Hoàn thành'" *ngIf="table.status=='06'" (click)="completeTrip(table)">Hoàn thành</button>
+                <button class="fas fa-cog" style="cursor: pointer; color: #7d90ee"  (click)="detail(table)">Chi tiết</button>
+
+
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims" >{{table.code}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table.phone}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table.fullName}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table.email}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table?.recipient}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table?.approver}}</p>
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims"  >{{table?.responsiblePerson}}</p>
+              </td>
+              <td>
+                {{table?.status==="00"?"Chưa tư vấn":table?.status==="01"?"Đã tư vấn xong":table?.status==="02"?"Đang trong quá trình":table?.status==="03"?"Tư vấn thất bại":table?.status==="04"?"Đã tạo quy trình":table?.status==="05"?"Trình duyệt":table?.status==="06"?"Đã duyệt":table?.status==="07"?"Đã hủy":table?.status==="08"?"Đã hoàn thành":""}}
+              </td>
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+          <div class="col-sm-12 col-md-5">
+          </div>
+          <!-- Pagination -->
+          <div class="col-sm-12 col-md-5">
+            <div class="text-md-right float-md-end pagination-rounded">
+              <ngb-pagination [collectionSize]="page.totalElements" [(page)]="page.pageNumber" [pageSize]="page.size"
+                              [maxSize]="5" (pageChange)="changePage($event)">
+              </ngb-pagination>
+            </div>
+          </div>
+          <!-- End Pagination -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

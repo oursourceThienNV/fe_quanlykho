@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 
 import { SignupComponent } from './signup/signup.component';
+import {RegisterTripComponent} from "../../pages/category/register-trip/register-trip.component";
 
 
 const routes: Routes = [
@@ -12,9 +13,10 @@ const routes: Routes = [
         component: LoginComponent
     },
     {
-        path: 'signup',
-        component: SignupComponent
+        path: 'rigister',
+        component: RegisterTripComponent
     },
+   {path:'success-trip',component:RegisterTripComponent}
     // {
     //     path: 'signup-2',
     //     component: Register2Component

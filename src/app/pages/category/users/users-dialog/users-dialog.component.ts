@@ -19,17 +19,11 @@ export class UsersDialogComponent implements OnInit {
   checkAction: any;
   dataForm: FormGroup = this.fb.group({
     id: [null],
-    fullname: [null],
-    identifier: [null],
-    email:[null],
-    phone: [null],
-    address:[null],
-    role:[null],
+    fullName: [null],
+    username: [null],
+    password:[null],
+    role: [null],
     status: [null],
-    repreFullName:[null],
-    company:[null],
-    companyAddress:[null],
-    companyPhone:[null]
   });
   lstAuthority: any = [];
   lstStatus: any = [];
@@ -48,7 +42,7 @@ export class UsersDialogComponent implements OnInit {
       console.log('inputData:', this.checkAction);
       this.dataForm.patchValue(this.inputData);
     } else {
-      
+
     }
   }
 
@@ -81,26 +75,51 @@ export class UsersDialogComponent implements OnInit {
     }
     debugger;
     const data = this.dataForm.value;
-    this.userProfileService.insertOrUpdate(data.id, data).subscribe(res => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        width: '20em',
-        title: data.id ? this.translateService.instant('common.message.update-success') : this.translateService.instant('common.message.insert-success'),
-        showConfirmButton: false,
-        timer: 2500
-      });
-      this.modal.close({result: 'complete'});
-    }, (error) => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        width: '20em',
-        title: error.error.message,
-        showConfirmButton: false,
-        timer: 2500
-      });
-    })
+    if(data.id==null) {
+      data.status="";
+      data.password="";
+      this.userProfileService.insert(data).subscribe(res => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          width: '20em',
+          title: data.id ? this.translateService.instant('common.message.update-success') : this.translateService.instant('common.message.insert-success'),
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.modal.close({result: 'complete'});
+      }, (error) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          width: '20em',
+          title: error.error.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+      })
+    }else{
+      this.userProfileService.update(data).subscribe(res => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          width: '20em',
+          title: data.id ? this.translateService.instant('common.message.update-success') : this.translateService.instant('common.message.insert-success'),
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.modal.close({result: 'complete'});
+      }, (error) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          width: '20em',
+          title: error.error.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+      })
+    }
   }
 
   get password() {

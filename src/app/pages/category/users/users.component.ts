@@ -25,9 +25,8 @@ export class UsersComponent implements OnInit {
   searchForm: FormGroup = this.fb.group({
     username: [null],
     fullname: [null],
-    status: [""],
-    phone:[null],
-    role: [""]
+    status: [null],
+    role: [null]
   });
   lstProductType: any = [];
   lstGroup: any = [];
@@ -60,18 +59,16 @@ export class UsersComponent implements OnInit {
     this.userProfileService.search({
       pageNumber: '0',
       pageSize: 10,
-      username:this.stringNullOrEmpty(this.searchForm.get("username").value)? {contains:this.searchForm.get("username").value}:null,
-      fullname:this.stringNullOrEmpty(this.searchForm.get("fullname").value)? {contains:this.searchForm.get("fullname").value}:null,
-      role:this.stringNullOrEmpty(this.searchForm.get("role").value)? {contains:this.searchForm.get("role").value}:null,
-      status:this.stringNullOrEmpty(this.searchForm.get("status").value)? {contains:this.searchForm.get("status").value}:null,
+      username:this.searchForm.get("username").value!=null?this.searchForm.get("username").value:"",
+      fullname:this.searchForm.get("fullname").value!=null?this.searchForm.get("fullname").value:""
     }).subscribe(res => this.onSuccess(res.body));
   }
 
   protected onSuccess(data: any | null): void {
-    var jso = JSON.stringify(data.body.page.content); 
-    this.tables=data?.body?.page?.content;
+    var jso = JSON.stringify(data.users);
+    this.tables=data?.users
     console.log(jso);
-    
+
   }
   stringNullOrEmpty(value: any){
     if(value===""||value===null||value==undefined){
@@ -80,36 +77,13 @@ export class UsersComponent implements OnInit {
       return true;
     }
   }
-  export() {
-    // this.userProfileService.export(this.searchForm.value).subscribe(res => {
-    //   Swal.fire({
-    //     position: 'top-end',
-    //     icon: 'success',
-    //     width: '20em',
-    //     title: this.translateService.instant('alert.success-download'),
-    //     showConfirmButton: false,
-    //     timer: 1500
-    //   });
-    //   const name = res.headers.get('filename');
-    //   const contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
-    //   this.saveFile(res.body, name, contentType);
-    // });
-  }
-  saveFile(data: any, filename?: string, contentType?: string) {
-    const blob = new Blob([data], {type: contentType});
-    fileSaver.saveAs(blob, filename);
-  }
+
 
   selectAllChange() {
     this.tables = this.tables.map(e => {
       e['selected'] = this.selectedAll;
       return e
     })
-  }
-  deleteCheck(tables: any) {
-    if (tables.filter(e => e.selected === true).length === 0) {
-      return true
-    } else return false
   }
 
   changePage(page) {

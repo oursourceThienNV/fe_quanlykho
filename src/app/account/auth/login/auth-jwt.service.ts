@@ -8,7 +8,8 @@ import {ApiUrl} from "../../../shared/constant/ApiUrl.constant";
 
 
 type JwtToken = {
-  jwt: string;
+  message:string,
+  token: string;
 };
 
 @Injectable({providedIn: 'root'})
@@ -51,6 +52,6 @@ export class AuthServerProvider {
   }
 
   private authenticateSuccess(response: JwtToken): void {
-    localStorage.setItem('authData', response.jwt);
+    localStorage.setItem('authData', response?.token);
   }
 }

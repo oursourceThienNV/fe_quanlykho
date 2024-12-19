@@ -1,0 +1,97 @@
+<form [formGroup]="dataForm" (ngSubmit)="saveTrip()">
+  <div class="modal-header">
+    <h3 class="modal-title mt-0"><b>{{ title }}</b></h3>
+    <button type="button" class="btn-close" aria-hidden="true" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="row">
+      <!-- Registration Code -->
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="registrationCode">Mã đăng ký</label>
+          <input id="registrationCode" type="text" class="form-control" formControlName="code" maxlength="50" required>
+        </div>
+      </div>
+
+      <!-- Trip Name -->
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="tripName">Tên chuyến đi<span class="text-danger">*</span></label>
+          <input id="tripName" type="text" class="form-control" formControlName="travelName" maxlength="100" required>
+        </div>
+      </div>
+
+      <!-- Start Time -->
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="startTime">Thời gian bắt đầu<span class="text-danger">*</span></label>
+          <input id="startTime" type="text" class="form-control" formControlName="startDate" required>
+        </div>
+      </div>
+
+      <!-- End Time -->
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="endTime">Thời gian kết thúc<span class="text-danger">*</span></label>
+          <input id="endTime" type="text" class="form-control" formControlName="endDate" required>
+        </div>
+      </div>
+
+      <!-- Responsible Person -->
+      <div class="col-md-6">
+        <div class="mb-2">
+          <label for="responsiblePerson">Người chịu trách nhiệm<span class="text-danger">*</span></label>
+          <select id="responsiblePerson" class="form-control" formControlName="responsiblePersonID" required>
+            <option *ngFor="let person of lstResponsiblePersons" [value]="person.id">{{person.username}} - {{person.fullName}}</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Trip Description -->
+      <div class="col-md-12">
+        <div class="mb-2">
+          <label for="tripDescription">Mô tả chuyến đi</label>
+          <textarea id="tripDescription" class="form-control" formControlName="travelDescription" maxlength="4000" rows="4"></textarea>
+        </div>
+      </div>
+
+      <!-- Add Stages -->
+      <div class="col-md-12">
+        <h5>Thêm mới các giai đoạn</h5>
+        <div formArrayName="stages">
+          <div *ngFor="let stage of stages.controls; let i = index" [formGroupName]="i" class="mb-3">
+            <div class="row">
+              <!-- Start Time -->
+              <div class="col-md-3">
+                <label for="stageStartTime-{{i}}">Thời gian bắt đầu</label>
+                <input id="stageStartTime-{{i}}" type="text" class="form-control" formControlName="startTime" required>
+              </div>
+              <!-- End Time -->
+              <div class="col-md-3">
+                <label for="stageEndTime-{{i}}">Thời gian kết thúc</label>
+                <input id="stageEndTime-{{i}}" type="text" class="form-control" formControlName="endTime" required>
+              </div>
+              <!-- Location -->
+              <div class="col-md-3">
+                <label for="stageLocation-{{i}}">Địa điểm</label>
+                <input id="stageLocation-{{i}}" type="text" class="form-control" formControlName="location" maxlength="255" required>
+              </div>
+              <!-- Description -->
+              <div class="col-md-3">
+                <label for="stageDescription-{{i}}">Mô tả hành trình</label>
+                <textarea id="stageDescription-{{i}}" class="form-control" formControlName="description" maxlength="1000" rows="2"></textarea>
+              </div>
+            </div>
+            <!-- Delete Button -->
+            <button type="button" class="btn btn-danger mt-2" (click)="removeStage(i)">Xóa giai đoạn</button>
+          </div>
+        </div>
+        <button type="button" class="btn btn-success mt-2" (click)="addStage()">Thêm giai đoạn</button>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-primary">Lưu</button>
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Hủy</button>
+  </div>
+</form>

@@ -45,7 +45,7 @@ return this.http.post(`${this.api.getApiSign()}/get-sign-public-key`, user, {
   observe: 'response',
 });
 }
-  
+
   encrypt(body: any) {
     return this.http.post(`${this.api.getAuthEncrypt()}/encrypt-text`, body, {
       observe: 'response'
@@ -78,7 +78,7 @@ return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
 }
 
   public search(body?: any): Observable<any> {
-    return this.http.post<any[]>(`${this.api.getCatalogApi()}/user/on-search`, body,{
+    return this.http.post<any[]>(`${this.api.getCatalogApi()}/api/user/list`, body,{
       observe: 'response'
     });
   }
@@ -103,16 +103,37 @@ return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
     });
   }
 
-  public insertOrUpdate(id?: any, body?: any): Observable<any> {
-    
-      return this.http.post<any>(`${this.api.getCatalogApi()}/createUser`, body, {
+  public insert(body?: any): Observable<any> {
+
+      return this.http.post<any>(`${this.api.getCatalogApi()}/api/user/register`, body, {
         observe: 'response'
       });
-    
+
+  }
+  public update(body?: any): Observable<any> {
+
+    return this.http.post<any>(`${this.api.getCatalogApi()}/api/user/update`, body, {
+      observe: 'response'
+    });
+
+  }
+  public findHdv(body?: any): Observable<any> {
+
+    return this.http.post<any>(`${this.api.getCatalogApi()}/api/user/hdv`, body, {
+      observe: 'response'
+    });
+
+  }
+  public listStage(body?: any): Observable<any> {
+
+    return this.http.post<any>(`${this.api.getCatalogApi()}/api/user/stages`, body, {
+      observe: 'response'
+    });
+
   }
   public changePassword(body?: any): Observable<any> {
 
-      return this.http.post<any>(`${this.api.getCatalogApi()}/change-pass-word`, body, {
+      return this.http.post<any>(`${this.api.getCatalogApi()}/api/user/update`, body, {
         observe: 'response'
       });
 
@@ -123,6 +144,6 @@ return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
       observe: 'response'
     });
   }
-  
+
 
 }

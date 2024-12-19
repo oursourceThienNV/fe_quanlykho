@@ -18,36 +18,6 @@
                 <input id="fullname" name="fullname" type="text" class="form-control" formControlName="fullname" maxlength="500">
               </div>
             </div>
-            <div class="col-md-2">
-              <div class="mb-4">
-                <label>SDT</label>
-                <input id="phone" name="phone" type="text" class="form-control" formControlName="phone" maxlength="500">
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="mb-4">
-                <label for="statusId">Trạng thái</label>
-                <ng-select formControlName="status" formControl="form-control">
-                <ng-option value="">Tất cả</ng-option>
-                <ng-option value="02">Tạm dừng hoạt động</ng-option>
-                <ng-option value="01">Đang hoạt động</ng-option>
-<!--
-                <ng-option value="02">Vô hiệu hóa</ng-option>
--->
-              </ng-select>
-              </div>
-            </div>
-            <div class="col-md-2">
-              <div class="mb-4">
-                <label for="roleId">Vai trò</label>
-                <ng-select formControlName="role" formControl="form-control">
-                  <ng-option value="">Tất cả</ng-option>
-                <ng-option value="00">Admin</ng-option>
-                <ng-option value="01">Nhân viên</ng-option>
-              </ng-select>
-
-              </div>
-            </div>
           </div>
           <div class="d-flex flex-wrap gap-2 mt-2 justify-content-center">
             <button type="submit" class="btn btn-primary"><i
@@ -76,12 +46,7 @@
               <th>STT</th>
               <th>Thao tác</th>
               <th>Tên đăng nhập</th>
-              <th>Tên đầy đủ</th>
-              <th>Email</th>
-              <th>SĐT</th>
-<!--
-              <th>Người đại diện</th>
--->
+              <th>Họ và tên</th>
               <th>Vai trò</th>
               <th>Trạng thái</th>
             </tr>
@@ -101,19 +66,13 @@
                 <i class="fas fa-key" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Thay đổi mật khẩu'|translate" (click)="resetPassword(table)"></i>
               </td>
               <td style="max-width: 150px;">
-                <p class="class_nowrap_lims" >{{table.identifier}}</p>
+                <p class="class_nowrap_lims" >{{table.username}}</p>
               </td>
               <td style="max-width: 150px;">
-                <p class="class_nowrap_lims"  >{{table.fullname}}</p>
-              </td>
-              <td style="max-width: 150px;">
-                <p class="class_nowrap_lims" >{{table.email}}</p>
-              </td>
-              <td style="max-width: 150px;">
-                <p class="class_nowrap_lims" >{{table.phone}}</p>
+                <p class="class_nowrap_lims"  >{{table.fullName}}</p>
               </td>
               <td>
-                {{table?.role==="00"?"Admin":"Nhân viên"}}
+                {{table?.role==="00"?"Admin":table?.role==="01"?"Nhân viên":table?.role==="02"?"Quản lý":table?.role==="03"?"Hướng dẫn viên":""}}
               </td>
               <td>
                 {{table?.status==="01"?"Đang hoạt động":"Bị vô hiệu hóa"}}

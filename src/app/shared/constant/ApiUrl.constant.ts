@@ -5,7 +5,7 @@ export class ApiUrl {
   public getAuthApi(): string {
     // return `${environment.apiUrl}/oauth/token`;
     //return `http://103.142.139.54:8101/oauth/token`;
-    return `${environment.apiUrl}/login`
+    return `${environment.apiUrl}/api/user/login`
   }
   public getAuthSign(): string {
     // return `${environment.apiUrl}/oauth/token`;

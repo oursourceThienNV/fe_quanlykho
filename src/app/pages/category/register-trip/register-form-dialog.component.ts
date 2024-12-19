@@ -4,23 +4,30 @@ import * as moment from "moment";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {TranslateService} from "@ngx-translate/core";
 import Swal from "sweetalert2";
-import { ProductService } from 'src/app/core/services/product.service';
-import { formatDate } from "@angular/common";
+import {ReigisterFormService} from "../../../core/services/reigister-form.service";
 @Component({
-  selector: 'app-product-dialog',
-  templateUrl: './product-dialog.component.html'
+  selector: 'app-user-dialog',
+  templateUrl: './register-form-dialog.component.html'
 })
-export class ProductDialogComponent implements OnInit {
+export class RegisterFormDialogComponent implements OnInit {
 
   title: string = '';
   inputData: any;
-  action: any;
+  role:any;
+  checkAction: any;
   dataForm: FormGroup = this.fb.group({
-    id: [null],
-    pno: [null],
-    pname: [null],
-    description: [null],
-    amount:[null]
+    registrationID:[null],
+    fullName: [''],
+    gender: [''],
+    phone: [''],
+    email: [''],
+    address: [''],
+    guests: [''],
+    children: [''],
+    reason: [''],
+    code:[''],
+    status:[''],
+    description:['']
   });
   lstAuthority: any = [];
   lstStatus: any = [];
@@ -28,16 +35,15 @@ export class ProductDialogComponent implements OnInit {
 
   constructor(public modal: NgbActiveModal,
               private translateService: TranslateService,
-              public productService: ProductService,
+              public userProfileService: ReigisterFormService,
               private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
     debugger;
-    if(this.action!=="create"&&this.action!=="edit"){
-        this.dataForm.disable();
-    }
     if (this.inputData) {
+
+      console.log('inputData:', this.checkAction);
       this.dataForm.patchValue(this.inputData);
     } else {
 
@@ -67,33 +73,37 @@ export class ProductDialogComponent implements OnInit {
   // }
 
   save() {
-    if (this.dataForm.invalid) {
-      this.dataForm.markAllAsTouched();
-      return
-    }
-    // const date = new Date(this.dataForm.get("decisionDate").value);
-    // this.dataForm.get("decisionDate").setValue(date);
+    debugger;
     const data = this.dataForm.value;
-    this.productService.insertOrUpdate(data.id, data).subscribe(res => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        width: '20em',
-        title: data.id ? this.translateService.instant('common.message.update-success') : this.translateService.instant('common.message.insert-success'),
-        showConfirmButton: false,
-        timer: 2500
-      });
-      this.modal.close({result: 'complete'});
-    }, (error) => {
-      Swal.fire({
-        position: 'top-end',
-        icon: 'error',
-        width: '20em',
-        title: error.error.message,
-        showConfirmButton: false,
-        timer: 2500
-      });
-    })
-  }
+    this.userProfileService.update(data).subscribe(res => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'success',
+          width: '20em',
+          title: data.id ? this.translateService.instant('common.message.update-success') : this.translateService.instant('common.message.insert-success'),
+          showConfirmButton: false,
+          timer: 2500
+        });
+        this.modal.close({result: 'complete'});
+      }, (error) => {
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          width: '20em',
+          title: error.error.message,
+          showConfirmButton: false,
+          timer: 2500
+        });
+      })
+    }
+
+  // get password() {
+  //   return this.dataForm.get('password');
+  // }
+  //
+  // get rePassword() {
+  //   return this.dataForm.get('rePassword');
+  // }
+
 }
 

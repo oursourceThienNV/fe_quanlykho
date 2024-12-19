@@ -25,24 +25,17 @@ import {TranslateModule} from "@ngx-translate/core";
 import {SharedModule} from "../../shared/shared.module";
 import {TooltipModule} from "ngx-bootstrap/tooltip";
 import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
-
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import { UsersComponent } from './users/users.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
-import { ProductListComponent } from './product/product-list.component';
 import { UsersDialogComponent } from './users/users-dialog/users-dialog.component';
-import { ProductDialogComponent } from './product/product-dialog/product-dialog.component';
-import {ProviderListComponent} from "./provider/provider-list.component";
-import {ProviderDialogComponent} from "./provider/provider-dialog/provider-dialog.component";
-import {WarehouseListComponent} from "./ware/warehouse-list.component";
-import {WarehouseDialogComponent} from "./ware/warehouse-dialog/warehouse-dialog.component";
-import {ExportListComponent} from "./export/export-list.component";
-import {ExportDialogComponent} from "./export/export-dialog/export-dialog.component";
-
+import {RegisterFormComponent} from "./register-trip/register-form.component";
+import {RegisterFormDialogComponent} from "./register-trip/register-form-dialog.component";
+import {RegisterFormTravelDialogComponent} from "./register-trip/register-form-travel-dialog.component";
 
 @NgModule({
   declarations: [
-    UsersComponent, ResetPasswordComponent,ProductListComponent,UsersDialogComponent,ProductDialogComponent,ResetPasswordComponent,ProviderListComponent,ProviderDialogComponent,WarehouseListComponent,WarehouseDialogComponent,ExportListComponent,ExportDialogComponent
+    UsersComponent, ResetPasswordComponent, UsersDialogComponent,RegisterFormComponent,RegisterFormDialogComponent,RegisterFormTravelDialogComponent
   ],
   imports: [
     CommonModule,
