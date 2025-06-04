@@ -29,20 +29,14 @@ import {CKEditorModule} from "@ckeditor/ckeditor5-angular";
 import {BsDatepickerModule} from "ngx-bootstrap/datepicker";
 import { UsersComponent } from './users/users.component';
 import { ResetPasswordComponent } from './users/reset-password/reset-password.component';
-import { ProductListComponent } from './product/product-list.component';
 import { UsersDialogComponent } from './users/users-dialog/users-dialog.component';
-import { ProductDialogComponent } from './product/product-dialog/product-dialog.component';
-import {ProviderListComponent} from "./provider/provider-list.component";
-import {ProviderDialogComponent} from "./provider/provider-dialog/provider-dialog.component";
-import {WarehouseListComponent} from "./ware/warehouse-list.component";
-import {WarehouseDialogComponent} from "./ware/warehouse-dialog/warehouse-dialog.component";
-import {ExportListComponent} from "./export/export-list.component";
-import {ExportDialogComponent} from "./export/export-dialog/export-dialog.component";
-
+import {MediaComponent} from "./image/media.component";
+import {MediaDialogComponent} from "./image/media-dialog.component";
+import {StoresComponent} from "./stores/stores.component";
 
 @NgModule({
   declarations: [
-    UsersComponent, ResetPasswordComponent,ProductListComponent,UsersDialogComponent,ProductDialogComponent,ResetPasswordComponent,ProviderListComponent,ProviderDialogComponent,WarehouseListComponent,WarehouseDialogComponent,ExportListComponent,ExportDialogComponent
+    UsersComponent, ResetPasswordComponent,UsersDialogComponent,MediaComponent,MediaDialogComponent,StoresComponent
   ],
   imports: [
     CommonModule,

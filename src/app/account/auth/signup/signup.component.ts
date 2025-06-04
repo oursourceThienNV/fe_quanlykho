@@ -75,7 +75,7 @@ export class SignupComponent implements OnInit {
         //       this.error = error ? error : '';
         //     });
         this.userService.register(this.signupForm.value).subscribe(res => {
-          debugger;
+
           this.authorities = res.body;
           if(this.authorities?.body){
             alert("Đăng ký tài khoản thành công, Vui lòng chờ phê duyệt trong thời gian sớm nhất, Liên hệ 0978145314");

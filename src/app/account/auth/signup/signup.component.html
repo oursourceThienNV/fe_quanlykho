@@ -7,8 +7,8 @@
             <div class="row">
               <div class="col-7">
                 <div class="text-primary p-4">
-                  <h5 class="text-primary">HỆ THỐNG QL CHỨNG THƯ SỐ</h5>
-                  <p>ĐĂNG KÝ CHỨNG THƯ SỐ</p>
+                  <h5 class="text-primary">HỆ THỐNG </h5>
+                  <p>QUẢN LÝ QUY TRÌNH SẢN XUẤT</p>
                 </div>
               </div>
               <div class="col-5 align-self-end">
@@ -46,7 +46,7 @@
                     <div *ngIf="f.username.errors.required">Tên đăng nhập không bỏ trống</div>
                   </div>
                 </div> -->
-                <div class="mb-3">
+                <!--<div class="mb-3">
                   <label for="identifier" class="form-label">CCCD</label>
 
                   <input type="text" formControlName="identifier" class="form-control"
@@ -55,8 +55,8 @@
                   <div *ngIf="submitted && f.identifier.errors" class="invalid-feedback">
                     <div *ngIf="f.identifier.errors.required">CCCD không bỏ trống</div>
                   </div>
-                </div>
-                
+                </div>-->
+
                 <div class="mb-3">
                   <label for="password" class="form-label">Mật khẩu</label>
 
@@ -79,7 +79,7 @@
                   </div>
                 </div>
 
-                
+
                 <div class="mb-3">
                   <label for="fullname" class="form-label">Họ và tên</label>
                   <input type="text" formControlName="fullname" class="form-control"
@@ -112,25 +112,25 @@
                     <div *ngIf="f.phone.errors.required">SĐT không bỏ trống</div>
                   </div>
                 </div>
-                
-                <div class="mb-3">
-                  <label for="repreFullName" class="form-label">Người đại diện pháp luật</label>
-                  <input type="text" formControlName="repreFullName" class="form-control"
-                    id="repreFullName"
-                    placeholder="Nguyễn Văn A" />
-                </div>
-                <div class="mb-3">
-                  <label for="company" class="form-label">Tên công ty</label>
-                  <input type="text" formControlName="company" class="form-control"
-                    id="company"
-                    placeholder="Công ty TNHH" />
-                </div>
-                <div class="mb-3">
-                  <label for="companyAddress" class="form-label">Địa chỉ công ty</label>
-                  <input type="text" formControlName="companyAddress" class="form-control"
-                     id="companyAddress"
-                    placeholder="36 Phạm Hùng" />
-                </div>
+
+<!--                <div class="mb-3">-->
+<!--                  <label for="repreFullName" class="form-label">Người đại diện pháp luật</label>-->
+<!--                  <input type="text" formControlName="repreFullName" class="form-control"-->
+<!--                    id="repreFullName"-->
+<!--                    placeholder="Nguyễn Văn A" />-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                  <label for="company" class="form-label">Tên công ty</label>-->
+<!--                  <input type="text" formControlName="company" class="form-control"-->
+<!--                    id="company"-->
+<!--                    placeholder="Công ty TNHH" />-->
+<!--                </div>-->
+<!--                <div class="mb-3">-->
+<!--                  <label for="companyAddress" class="form-label">Địa chỉ công ty</label>-->
+<!--                  <input type="text" formControlName="companyAddress" class="form-control"-->
+<!--                     id="companyAddress"-->
+<!--                    placeholder="36 Phạm Hùng" />-->
+<!--                </div>-->
 
                 <div class="mt-4 d-grid">
                   <button class="btn btn-primary" type="submit">Đăng ký tài khoản</button>

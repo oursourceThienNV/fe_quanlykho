@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoaderService } from "../../../core/services/loader.service";
+import {LoaderService} from "../../../core/services/loader.service";
 
 @Component({
   selector: 'app-loader',
@@ -15,7 +15,7 @@ export class LoaderComponent implements OnInit {
     this.loaderService.isLoading.subscribe((v) => {
       setTimeout(() => {
         this.loading = v;
-      }, 1500);     
+      }, 1500);
     });
   }
   ngOnInit(): void {

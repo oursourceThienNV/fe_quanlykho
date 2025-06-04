@@ -85,7 +85,7 @@ export class TreePickerRadioComponent implements ControlValueAccessor,OnChanges 
   public check(node) {
     console.log(node);
       this.treeInput.nativeElement.value = node.name;
-      debugger;
+
       this.checkEmit.emit(node);
   }
 

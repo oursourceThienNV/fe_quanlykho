@@ -2,7 +2,7 @@
   <app-page-title title="{{'users.title' | translate}}" [breadcrumbItems]="breadCrumbItems"></app-page-title>
   <div class="row">
     <div class="card">
-      <div class="card-body" *ngIf="role=='00'">
+      <div class="card-body">
         <form [formGroup]="searchForm" (submit)="search()">
           <div class="row">
             <div class="col-md-2">
@@ -43,8 +43,15 @@
                 <ng-select formControlName="role" formControl="form-control">
                   <ng-option value="">Tất cả</ng-option>
                 <ng-option value="00">Admin</ng-option>
-                <ng-option value="01">Nhân viên</ng-option>
-              </ng-select>
+                <ng-option value="01">Ban lãnh đạo</ng-option>
+                  <ng-option value="02">Kế hoạch sản xuất</ng-option>
+                  <ng-option value="03">Kho</ng-option>
+                  <ng-option value="04">Trưởng phân xưởng</ng-option>
+                  <ng-option value="05">Trưởng ca</ng-option>
+                  <ng-option value="06">Phụ trách sửa lỗi</ng-option>
+                  <ng-option value="07">QC</ng-option>
+                  <ng-option value="08">Nhân Công</ng-option>
+                </ng-select>
 
               </div>
             </div>
@@ -101,7 +108,7 @@
                 <i class="fas fa-key" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Thay đổi mật khẩu'|translate" (click)="resetPassword(table)"></i>
               </td>
               <td style="max-width: 150px;">
-                <p class="class_nowrap_lims" >{{table.identifier}}</p>
+                <p class="class_nowrap_lims" >{{table.username}}</p>
               </td>
               <td style="max-width: 150px;">
                 <p class="class_nowrap_lims"  >{{table.fullname}}</p>
@@ -113,7 +120,7 @@
                 <p class="class_nowrap_lims" >{{table.phone}}</p>
               </td>
               <td>
-                {{table?.role==="00"?"Admin":"Nhân viên"}}
+                {{table?.role==="00"?"Admin":table?.role==="01"?"Ban lãnh đạo":table?.role==="02"?"Kế hoạch sản xuất":table?.role==="03"?"Kho":table?.role==="04"?"Xưởng Trưởng":table?.role==="05"?"Trưởng ca":table?.role==="06"?"Phụ trách lỗi":table?.role==="07"?"QC":"Nhân công"}}
               </td>
               <td>
                 {{table?.status==="01"?"Đang hoạt động":"Bị vô hiệu hóa"}}
@@ -126,16 +133,12 @@
         </div>
         <div class="row justify-content-md-between align-items-md-center mt-2">
           <div class="col-sm-12 col-md-5">
-          </div>
-          <!-- Pagination -->
-          <div class="col-sm-12 col-md-5">
-            <div class="text-md-right float-md-end pagination-rounded">
-              <ngb-pagination [collectionSize]="page.totalElements" [(page)]="page.pageNumber" [pageSize]="page.size"
-                              [maxSize]="5" (pageChange)="changePage($event)">
-              </ngb-pagination>
+            <div class="pagination">
+              <button (click)="loadPage((currentPage-1))" [disabled]="currentPage === 0">Previous</button>
+              <span>Page {{ currentPage+1}} of {{ totalPages }}</span>
+              <button (click)="loadPage((currentPage+1))" [disabled]="currentPage >= totalPages - 1">Next</button>
             </div>
           </div>
-          <!-- End Pagination -->
         </div>
       </div>
     </div>

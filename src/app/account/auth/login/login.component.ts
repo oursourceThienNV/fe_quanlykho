@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
           data => {
             // this.router.navigate(['/pages/home']);
             if(localStorage.getItem("authDate")===""){
-              this.error="Đăng nhập thất bại";
+              alert("Tài khoản và mật khẩu không đúng vui lòng thử lại sau");
             }
             this.accountService.identity().subscribe(res=>{
               console.log("=>>>",res.body.userInfo);
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/pages']);
           },
           error => {
-            this.error = error ? error : '';
+            alert("Tài khoản và mật khẩu không đúng vui lòng thử lại sau");
           });
     }
   }

@@ -39,6 +39,10 @@ export class UsersComponent implements OnInit {
   searchModel: any;
   userSearch:any;
   role: any;
+  totalPages: number = 0;
+  totalElements: number = 0;
+  currentPage: number = 0;
+  pageSize: number = 10;
   constructor(private fb: FormBuilder,
               private userProfileService: UserProfileService,
               private translateService: TranslateService,
@@ -47,31 +51,32 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.role=localStorage.getItem("role");
-    this.page.size = 10;
+    this.loadPage(0);
   }
 
   search() {
     console.log("aaa",this.searchForm.get("username").value);
-    this.setPage({offset: 0});
+    this.loadPage(this.currentPage);
   }
 
-  setPage(pageInfo) {
-    const pageToLoad: number = pageInfo.offset;
+  protected onSuccess(data: any | null): void {
+    var jso = JSON.stringify(data.body.page.content);
+    this.tables=data?.body?.page?.content;
+    this.totalPages = data.body.page.totalPages;
+    this.totalElements = data.body.page.totalElements;
+    this.currentPage = data.body.page.currentPage;
+
+  }
+  loadPage(page: number): void {
+    debugger;
     this.userProfileService.search({
-      pageNumber: '0',
+      pageNumber: page,
       pageSize: 10,
       username:this.stringNullOrEmpty(this.searchForm.get("username").value)? {contains:this.searchForm.get("username").value}:null,
       fullname:this.stringNullOrEmpty(this.searchForm.get("fullname").value)? {contains:this.searchForm.get("fullname").value}:null,
       role:this.stringNullOrEmpty(this.searchForm.get("role").value)? {contains:this.searchForm.get("role").value}:null,
       status:this.stringNullOrEmpty(this.searchForm.get("status").value)? {contains:this.searchForm.get("status").value}:null,
     }).subscribe(res => this.onSuccess(res.body));
-  }
-
-  protected onSuccess(data: any | null): void {
-    var jso = JSON.stringify(data.body.page.content); 
-    this.tables=data?.body?.page?.content;
-    console.log(jso);
-    
   }
   stringNullOrEmpty(value: any){
     if(value===""||value===null||value==undefined){
@@ -112,17 +117,17 @@ export class UsersComponent implements OnInit {
     } else return false
   }
 
-  changePage(page) {
-    if (page) {
-      this.setPage({offset: page - 1})
-    }
-  }
+  // changePage(page) {
+  //   if (page) {
+  //     this.setPage({offset: page - 1})
+  //   }
+  // }
 
   create() {
     const res = this.modalService.open(UsersDialogComponent, {size: 'lg', centered: true});
     res.componentInstance.title = this.translateService.instant('users.create_title');
     res.closed.subscribe(temp => {
-      this.setPage({offset: 0})
+      this.loadPage(this.currentPage)
     })
   }
   edit(table) {
@@ -132,7 +137,7 @@ export class UsersComponent implements OnInit {
     res.componentInstance.role=this.role;
     res.componentInstance.checkAction = "E";
     res.closed.subscribe(temp => {
-      this.setPage({offset: 0})
+      this.loadPage(this.currentPage)
     })
   }
 
@@ -141,7 +146,7 @@ export class UsersComponent implements OnInit {
     res.componentInstance.title = this.translateService.instant('users.reset_password_title');
     res.componentInstance.inputData = table;
     res.closed.subscribe(temp => {
-      this.setPage({offset: 0})
+      this.loadPage(this.currentPage)
     });
   }
 
@@ -171,7 +176,7 @@ export class UsersComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000
           });
-          this.setPage({offset: 0});
+          this.loadPage(this.currentPage)
           this.selectedAll = false;
         }, error => {
           Swal.fire({

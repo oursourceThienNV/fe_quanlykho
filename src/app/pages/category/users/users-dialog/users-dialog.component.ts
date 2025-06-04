@@ -6,13 +6,23 @@ import {TranslateService} from "@ngx-translate/core";
 import Swal from "sweetalert2";
 import {buildUnitTree} from "../../../../core/utils/common";
 import {UserProfileService} from "../../../../core/services/user.service";
-
+interface Pharse{
+  stt:number;
+  id:number,
+  code:string,
+  name:string,
+  unit:string,
+  amount:string,
+  dueDate:Date,
+  fullName:string,
+  userName:string,
+}
 @Component({
   selector: 'app-user-dialog',
   templateUrl: './users-dialog.component.html'
 })
 export class UsersDialogComponent implements OnInit {
-
+  listPharse:Pharse[]=[];
   title: string = '';
   inputData: any;
   role:any;
@@ -20,21 +30,16 @@ export class UsersDialogComponent implements OnInit {
   dataForm: FormGroup = this.fb.group({
     id: [null],
     fullname: [null],
-    identifier: [null],
+    username: [null],
     email:[null],
     phone: [null],
     address:[null],
     role:[null],
     status: [null],
-    repreFullName:[null],
-    company:[null],
-    companyAddress:[null],
-    companyPhone:[null]
+    description:[null],
+    pharseId:[null]
   });
-  lstAuthority: any = [];
   lstStatus: any = [];
-  lstUnitRequest = [];
-
   constructor(public modal: NgbActiveModal,
               private translateService: TranslateService,
               public userProfileService: UserProfileService,
@@ -42,13 +47,13 @@ export class UsersDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    debugger;
-    if (this.inputData) {
 
+    if (this.inputData) {
       console.log('inputData:', this.checkAction);
       this.dataForm.patchValue(this.inputData);
+      this.role=this.dataForm.get("role").value;
     } else {
-      
+
     }
   }
 
@@ -73,13 +78,15 @@ export class UsersDialogComponent implements OnInit {
       }
     }
   }
-
+  changeRole(){
+    this.role=this.dataForm.get("role").value;
+  }
   save() {
     if (this.dataForm.invalid) {
       this.dataForm.markAllAsTouched();
       return
     }
-    debugger;
+
     const data = this.dataForm.value;
     this.userProfileService.insertOrUpdate(data.id, data).subscribe(res => {
       Swal.fire({

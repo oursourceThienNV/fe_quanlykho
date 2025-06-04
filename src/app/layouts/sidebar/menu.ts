@@ -6,16 +6,29 @@ export const MENU_ADMIN: MenuItem[] = [
     icon: 'bx-home-circle',
     subItems: [
      {
-        id: 6,
+        id: 1,
         label: 'Quản lý người dùng',
         link: '/pages/category/users',
         parentId: 1
       }
+      // {
+      //   id: 2,
+      //   label: 'Quản lý hình ảnh',
+      //   link: '/pages/category/media',
+      //   parentId: 1
+      // },
+      ,
+      {
+        id: 2,
+        label: 'Quản lý cửa hàng',
+        link: '/pages/category/stores',
+        parentId: 1
+      }
     ]
-  }
+  },
 ];
 
-export const MENU_INVESTOR: MenuItem[] = [
+/*export const MENU_INVESTOR: MenuItem[] = [
   {
     id: 1,
     label: 'Cấu hình ',
@@ -62,6 +75,6 @@ export const MENU_INVESTOR: MenuItem[] = [
 
     ]
   }
-];
+];*/
 
 

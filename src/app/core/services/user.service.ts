@@ -14,6 +14,12 @@ export class UserProfileService {
     getAll() {
         return this.http.get<User[]>(`/api/login`);
     }
+  public getAllUser(): Observable<any> {
+
+    return this.http.post<any[]>(`${this.api.getCatalogApi()}/get-all-user`,{
+      observe: 'response'
+    });
+  }
     findAll():  Observable<any> {
         return this.http.get(`${this.api.getCatalogApi()}/users/find-all`, {
           observe: 'response'
@@ -25,63 +31,20 @@ export class UserProfileService {
           observe: 'response'
         });
     }
-  getPublicKey(user: any) {
-    return this.http.post(`${this.api.getApiSign()}/get-public-key`, user, {
-      observe: 'response',
-    });
-}
-getPrivateKey(user: any) {
-  return this.http.post(`${this.api.getApiSign()}/get-private-key`, user, {
-    observe: 'response',
-  });
-}
-getSignPrivateKey(user: any) {
-return this.http.post(`${this.api.getApiSign()}/get-sign-private-key`, user, {
-  observe: 'response',
-});
-}
-getSignPublicKey(user: any) {
-return this.http.post(`${this.api.getApiSign()}/get-sign-public-key`, user, {
-  observe: 'response',
-});
-}
-  
-  encrypt(body: any) {
-    return this.http.post(`${this.api.getAuthEncrypt()}/encrypt-text`, body, {
-      observe: 'response'
-    });
-}
-signFile(body: any) {
-  return this.http.post(`${this.api.getAuthEncrypt()}/sign-file`,body,{
+
+
+
+
+
+
+
+
+public search(body?: any): Observable<any> {
+  return this.http.post<any[]>(`${this.api.getCatalogApi()}/user/on-search`, body,{
     observe: 'response'
   });
-}
-encryptFile(body: any) {
-  return this.http.post(`${this.api.getAuthEncrypt()}/encrypt-file`,body,{
-    observe: 'response'
-  });
-}
-decrypt(body: any) {
-  return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-text`, body, {
-    observe: 'response'
-  });
-}
-testSign(body: any) {
-  return this.http.post(`${this.api.getAuthEncrypt()}/test-sign`, body, {
-    observe: 'response'
-  });
-}
-decryptFile(body: any) {
-return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
-  observe: 'response'
-});
 }
 
-  public search(body?: any): Observable<any> {
-    return this.http.post<any[]>(`${this.api.getCatalogApi()}/user/on-search`, body,{
-      observe: 'response'
-    });
-  }
 
   export(body?) {
     return this.http.post(`${this.api.getCatalogApi()}/admin/users/exportData`, body, {
@@ -104,11 +67,11 @@ return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
   }
 
   public insertOrUpdate(id?: any, body?: any): Observable<any> {
-    
+
       return this.http.post<any>(`${this.api.getCatalogApi()}/createUser`, body, {
         observe: 'response'
       });
-    
+
   }
   public changePassword(body?: any): Observable<any> {
 
@@ -117,12 +80,19 @@ return this.http.post(`${this.api.getAuthEncrypt()}/decrypt-file`,body,{
       });
 
   }
+  public findUserNoPassword(body?: any): Observable<any> {
+
+    return this.http.post<any>(`${this.api.getCatalogApi()}/get-user-by-username`, body, {
+      observe: 'response'
+    });
+
+  }
 
   public deleteMultiSelection(body?: any): Observable<any> {
     return this.http.post(`${this.api.getCatalogApi()}/delete`, body, {
       observe: 'response'
     });
   }
-  
+
 
 }

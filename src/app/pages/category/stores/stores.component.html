@@ -1,0 +1,95 @@
+<div class="container-fluid">
+  <app-page-title title="Quản lý cửa hàng"></app-page-title>
+  <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <form [formGroup]="searchForm" (submit)="search()">
+          <div class="row">
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="nameId">Mã cửa hàng</label>
+                <input id="code" name="name" type="text" class="form-control" formControlName="code" maxlength="500">
+              </div>
+            </div>
+
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label>Cửa hàng</label>
+                <input id="fullname" name="fullname" type="text" class="form-control" formControlName="fullname" maxlength="500">
+              </div>
+            </div>
+            <div class="col-md-2">
+              <div class="mb-4">
+                <label for="statusId">Trạng thái</label>
+                <ng-select formControlName="status" formControl="form-control">
+                  <ng-option value="">Tất cả</ng-option>
+                  <ng-option value="02">Tạm dừng hoạt động</ng-option>
+                  <ng-option value="01">Đang hoạt động</ng-option>
+                  <!--
+                                  <ng-option value="02">Vô hiệu hóa</ng-option>
+                  -->
+                </ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap gap-2 mt-2 justify-content-center">
+            <button type="submit" class="btn btn-primary"><i
+              class="fas fa-search"></i>{{'common.button.search'|translate}}</button>
+            <button type="button" (click)="create()" class="ml-2 btn btn-success"><i class="bx bx-plus-medical"></i>{{'common.button.insert'|translate}}</button>
+            <!-- <button type="button" (click)="delete()" class="ml-2 btn btn-danger" [disabled]="deleteCheck(tables)"><i class="fas fa-trash"></i>{{'common.button.delete'|translate}}</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Table -->
+        <div class="table-responsive">
+          <table id="basic-datatable"
+                 class="table table-bordered dt-responsive nowrap no-footer dtr-inline">
+            <thead>
+            <tr>
+              <th>STT</th>
+              <th>Mã cửa hàng</th>
+              <th>Tên cửa hàng</th>
+              <th>Trạng thái</th>
+            </tr>
+            </thead>
+           <tbody *ngFor="let table of tables;let i=index">
+            <tr>
+              <td>
+<!--                <ngb-highlight [result]="i + 1 + ((page.pageNumber - 1) * page.size)"></ngb-highlight>-->
+              </td>
+              <td>
+<!--                <i class="fas fa-edit" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Cập nhật thông tin người dùng'" (click)="edit(table)"></i>-->
+<!--                <i class="fas fa-key" style="cursor: pointer; color: #7d90ee" [ngbTooltip]="'Thay đổi mật khẩu'|translate" (click)="resetPassword(table)"></i>-->
+              </td>
+              <td style="max-width: 150px;">
+                <p class="class_nowrap_lims" >{{table.code}}</p>
+              </td>
+              <td>
+                {{table?.name}}
+              </td>
+              <td>
+                {{table?.status}}
+              </td>
+
+
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row justify-content-md-between align-items-md-center mt-2">
+          <div class="col-sm-12 col-md-5">
+            <div class="pagination">
+              <button (click)="loadPage((currentPage-1))" [disabled]="currentPage === 0">Previous</button>
+              <span>Page {{ currentPage+1}} of {{ totalPages }}</span>
+              <button (click)="loadPage((currentPage+1))" [disabled]="currentPage >= totalPages - 1">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

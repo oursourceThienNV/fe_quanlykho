@@ -8,7 +8,7 @@
       <div class="col-md-6">
         <div class="mb-2">
           <label for="username">Tên đăng nhập<span class="text-danger">*</span></label>
-          <input id="identifier" [readOnly]="inputData" type="text" class="form-control" formControlName="identifier"  maxlength="50" trim>
+          <input id="identifier" [readOnly]="inputData" type="text" class="form-control" placeholder="Tên đăng nhập tự sinh" disabled formControlName="username"  maxlength="50" trim>
         </div>
       </div>
 
@@ -20,26 +20,8 @@
       </div>
       <div class="col-md-6">
         <div class="mb-2">
-          <label for="address">Địa chỉ<span class="text-danger">*</span></label>
-          <input id="firstNameId" type="text" class="form-control" formControlName="address" maxlength="40" trim="blur">
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="mb-2">
           <label for="phone">SĐT<span class="text-danger">*</span></label>
           <input id="phone"  type="text" class="form-control" formControlName="phone" maxlength="40" trim="blur">
-        </div>
-      </div>
-
-
-      <div class="col-md-6" *ngIf="role=='00'">
-        <div class="mb-2">
-          <label>Vai trò<span class="text-danger">*</span></label>
-          <select class="form-control" formControlName="role">
-            <option value="00">Admin</option>
-            <option value="01">Nhân viên</option>
-          </select>
         </div>
       </div>
       <div class="col-md-6">
@@ -48,10 +30,41 @@
           <input id="emailId"  type="text" class="form-control" formControlName="email" maxlength="254" trim="blur">
         </div>
       </div>
-
-      <div class="col-md-6" *ngIf="checkAction && role=='00'">
+      <div class="col-md-6">
         <div class="mb-2">
-          <label for="statusId">Trạng thái<span class="text-danger">*</span></label>
+          <label>Vai trò<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="role" (ngModelChange)="changeRole()">
+            <option value="00">Admin</option>
+            <option value="01">Ban lãnh đạo</option>
+            <option value="02">Kế hoạch sản xuất</option>
+            <option value="03">Kho</option>
+            <option value="04">Trưởng phân xưởng</option>
+            <option value="05">Trưởng ca</option>
+            <option value="06">Phụ trách sửa lỗi</option>
+            <option value="07">QC</option>
+            <option value="08">Nhân Công</option>
+            </select>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="role==='08'">
+        <div class="mb-2">
+          <label>Chọn công đoạn<span class="text-danger">*</span></label>
+          <select class="form-control" formControlName="pharseId">
+            <option *ngFor="let pharse of listPharse" value="{{pharse.id}}" >
+              {{pharse?.code}} - {{pharse?.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="mb-2">
+          <label for="address">Địa chỉ<span class="text-danger">*</span></label>
+          <textarea class="form-control" formControlName="address"></textarea>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="checkAction">
+        <div class="mb-2">
+          <label>Trạng thái<span class="text-danger">*</span></label>
           <select formControlName="status" class="form-control">
             <!-- <option value="00">Chưa duyệt</option> -->
             <option value="01">Hoạt động</option>
@@ -59,6 +72,13 @@
           </select>
         </div>
       </div>
+      <div class="col-md-12">
+        <div class="mb-2">
+          <label>Mô tả<span class="text-danger">*</span></label>
+          <textarea class="form-control" formControlName="description"></textarea>
+        </div>
+      </div>
+
     </div>
 
   </div>

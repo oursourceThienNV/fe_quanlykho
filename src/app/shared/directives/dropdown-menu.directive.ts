@@ -1,6 +1,5 @@
 import {Directive, ElementRef, OnInit} from '@angular/core';
 import {DropdownDirective} from './dropdown.directive';
-import {CommonService} from "../../core/services/common.service";
 
 @Directive({
   selector: '[ngxDropdownMenu]',
